@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Admin Panel Panel -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-between align-items-center bg-info p-2 text-white">
+                    <h4>Admin Panel</h4>
+                    <a th:href="@{/admin2}" class="text-white">Add Matches</a>
+                    <a th:href="@{/logout}" class="text-white">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Column 1: Add Participant Form -->
+            <div class="col-md-6">
+                <h2>Add Participant</h2>
+                <form th:action="@{/addParticipant}" th:object="${participant}" method="post">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalPoints">Total Score:</label>
+                        <input type="number" id="totalPoints" name="totalPoints" th:field="*{totalPoints}" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Participant</button>
+                </form>
+            </div>
+
+            <!-- Column 2: Display Participants Table -->
+            <div class="col-md-6">
+                <h2>Participants</h2>
+                
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Total Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="participant : ${participants}">
+                            <td th:text="${participant.name}"></td>
+                            <td th:text="${participant.totalPoints}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
